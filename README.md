@@ -1,1 +1,1 @@
-# Store Product application for pratice using stripe paiment
+# Store Product application for pratice using stripe payment
