@@ -15,6 +15,13 @@ export async function PUT(
 
   return NextResponse.json(product);
 }
+export async function GET(_: Request, { params }: { params: { id: string } }) {
+  const product = await prisma.product.findUnique({
+    where: { id: params.id },
+  });
+
+  return NextResponse.json(product);
+}
 
 export async function DELETE(
   _: Request,
