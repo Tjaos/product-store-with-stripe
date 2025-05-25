@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2025-04-30.basil",
 });
 
-export async function POST(request: NextResponse) {
+export async function POST(request: Request) {
   const body = await request.json();
   const { product, quantity } = body;
   if (!product || !quantity) {
