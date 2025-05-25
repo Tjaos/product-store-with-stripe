@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function PUT(
@@ -8,7 +8,7 @@ export async function PUT(
   const body = await request.json();
   const { name, description, price } = body;
 
-  const product = await prisma.product.update({
+  const product = await db.product.update({
     where: { id: params.id },
     data: { name, description, price: parseFloat(price) },
   });
@@ -16,7 +16,7 @@ export async function PUT(
   return NextResponse.json(product);
 }
 export async function GET(_: Request, { params }: { params: { id: string } }) {
-  const product = await prisma.product.findUnique({
+  const product = await db.product.findUnique({
     where: { id: params.id },
   });
 
@@ -27,7 +27,7 @@ export async function DELETE(
   _: Request,
   { params }: { params: { id: string } }
 ) {
-  await prisma.product.delete({
+  await db.product.delete({
     where: { id: params.id },
   });
 
