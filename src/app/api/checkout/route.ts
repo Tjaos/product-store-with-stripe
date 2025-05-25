@@ -6,6 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 });
 
 export async function POST(request: NextRequest) {
+  const baseUrl = request.nextUrl.origin;
   const body = await request.json();
   const { product, quantity } = body;
   if (!product || !quantity) {
@@ -32,8 +33,8 @@ export async function POST(request: NextRequest) {
       },
     ],
     mode: "payment",
-    success_url: "http://localhost:3000/sucesso",
-    cancel_url: "http://localhost:3000/cancelado",
+    success_url: `${baseUrl}/sucesso`,
+    cancel_url: `${baseUrl}/cancelado`,
   });
   return NextResponse.json({ url: session.url }, { status: 200 });
 }

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CancelPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center flex-col">
@@ -8,12 +10,9 @@ const CancelPage = () => {
         Você cancelou opagamento. Se precisar de ajuda, entre em contato.
       </p>
       <p>
-        <a
-          className="text-lg text-blue-800 font-bold"
-          href="http://localhost:3000/products"
-        >
+        <Link className="text-lg text-blue-800 font-bold" href="/products">
           Voltar para a loja
-        </a>
+        </Link>
       </p>
     </div>
   );
