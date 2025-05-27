@@ -16,7 +16,7 @@ export default async function ProductPage() {
       <ScrollArea className="w-full pt-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-10">
           {product.map((p) => (
-            <ProductCard key={p.id} product={p} />
+            <ProductCard key={p.id} product={p}/>
           ))}
         </div>
       </ScrollArea>

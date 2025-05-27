@@ -8,31 +8,25 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 export async function POST(request: NextRequest) {
   const baseUrl = request.nextUrl.origin;
   const body = await request.json();
-  const { product, quantity } = body;
-  if (!product || !quantity) {
+  const { priceId } = body;
+
+  if (!priceId) {
     return NextResponse.json(
       {
-        error: "Dados incompletos",
+        error: "Faltando o ID do preço",
       },
       { status: 400 }
     );
   }
   const session = await stripe.checkout.sessions.create({
+    mode: "subscription",
     payment_method_types: ["card"],
     line_items: [
       {
-        price_data: {
-          currency: "brl",
-          product_data: {
-            name: product.name,
-            description: product.description || "",
-          },
-          unit_amount: product.price,
-        },
-        quantity: quantity,
+        price: priceId,
+        quantity: 1,
       },
     ],
-    mode: "payment",
     success_url: `${baseUrl}/sucesso`,
     cancel_url: `${baseUrl}/cancelado`,
   });
