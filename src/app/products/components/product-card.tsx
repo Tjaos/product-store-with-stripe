@@ -1,6 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useSession } from "next-auth/react";
 
 type Product = {
   id: string;
@@ -10,6 +12,9 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const { data: session } = useSession();
+  const isSubscribed = session?.user?.isSubscribed;
+
   return (
     <div className="w-full flex flex-col bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200">
       {/* Nome do curso */}
@@ -28,10 +33,15 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </ScrollArea>
 
-        {/* Aviso de acesso por assinatura */}
-        <span className="text-sm text-center text-indigo-700 font-medium mt-auto">
-          Curso disponível com a assinatura da plataforma.
-        </span>
+        {isSubscribed ? (
+          <Button className="mt-4 bg-green-600 text-white px-4 py-2 rounded">
+            Começar Curso
+          </Button>
+        ) : (
+          <span className="text-sm text-center text-indigo-700 font-medium mt-auto">
+            Curso disponível com a assinatura da plataforma.
+          </span>
+        )}
       </div>
     </div>
   );

@@ -29,6 +29,10 @@ export async function POST(req: NextRequest) {
 
     const customerId = session.customer as string;
 
+    if (!customerId) {
+      return new Response("Missing customer ID", { status: 400 });
+    }
+
     await db.user.updateMany({
       where: { stripeCustomerId: customerId },
       data: { isSubscribed: true },
