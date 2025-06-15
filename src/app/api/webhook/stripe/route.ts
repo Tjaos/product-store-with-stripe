@@ -37,7 +37,8 @@ export async function POST(req: NextRequest) {
       where: { stripeCustomerId: customerId },
       data: { isSubscribed: true },
     });
+    console.log(`Usuário com o ID ${customerId} foi marcado como inscrito.`);
   }
 
-  return new Response("ok", { status: 200 });
+  return new Response("Webhook recebido com sucesso!", { status: 200 });
 }
