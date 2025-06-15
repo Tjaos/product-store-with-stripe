@@ -35,13 +35,22 @@ export default function Home() {
           </div>
         </>
       ) : (
-        <>
-          <p className="text-lg mb-6">
-            Faça login para assinar e acessar todos os cursos disponíveis.
-          </p>
+        <div className=" flex flex-col p-5 items-center justify-center space-y-3">
+          <p className="text-lg mb-6">Faça login para acessar nossos cursos.</p>
 
-          <Button onClick={() => signIn("github")}>Entrar com GitHub</Button>
-        </>
+          <Button
+            className="p-5 bg-gray-800 text-white text-lg"
+            onClick={() => signIn("github")}
+          >
+            Entrar com GitHub
+          </Button>
+          <Button
+            className="p-5 bg-red-600 text-white text-lg"
+            onClick={() => signIn("google")}
+          >
+            Entrar com o Google
+          </Button>
+        </div>
       )}
     </main>
   );
