@@ -25,7 +25,7 @@ export default function Home() {
 
           <div className="space-y-4">
             {/* Aqui você pode verificar se o usuário está assinado */}
-            <Link href="/produtos">
+            <Link href="/products">
               <Button>Ver Cursos</Button>
             </Link>
 
