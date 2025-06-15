@@ -7,11 +7,11 @@ const CancelPage = () => {
         Pagamento Cancelado
       </h1>
       <p className="text-lg">
-        Você cancelou opagamento. Se precisar de ajuda, entre em contato.
+        Você cancelou o pagamento. Se precisar de ajuda, entre em contato.
       </p>
       <p>
         <Link className="text-lg text-blue-800 font-bold" href="/products">
-          Voltar para a loja
+          Voltar para o portal
         </Link>
       </p>
     </div>

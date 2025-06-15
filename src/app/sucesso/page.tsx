@@ -7,11 +7,12 @@ export default function SucessPage() {
         Pagamento realizado com sucesso!
       </h1>
       <p className="text-lg">
-        Obrigado pela sua compra, você receberá atualizações via e-mail
+        Obrigado pela sua assinatura, desfrute do seu acesso a todos os cursos!
+        Quaisquer dúvidas entre em contato.
       </p>
       <p>
         <Link className="text-lg text-blue-800 font-bold" href="/products">
-          Voltar para a loja
+          Acessar cursos
         </Link>
       </p>
     </div>
