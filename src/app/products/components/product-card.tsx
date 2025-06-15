@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
 
 type Product = {
   id: string;
@@ -13,49 +10,29 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleBuy = async () => {
-    const response = await fetch("api/checkout", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ product, quantity }),
-    });
-
-    const data = await response.json();
-    if (data.url) {
-      window.location.href = data.url;
-    }
-  };
-
   return (
-    <div
-      key={product.id}
-      className="w-full flex flex-col bg-slate-100 p-5 rounded shadow"
-    >
-      <h3 className="text-lg text-center font-semibold">{product.name}</h3>
-      <p className="text-xl text-center font-bold text-green-800">
-        Preço: R${(product.price / 100).toFixed(2)}
-      </p>
+    <div className="w-full flex flex-col bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200">
+      {/* Nome do curso */}
+      <div className="bg-indigo-600 text-white text-center py-4">
+        <h3 className="text-lg font-semibold">{product.name}</h3>
+      </div>
 
-      <ScrollArea className="rounded-lg text-start mt-4 p-2 border border-solid border-gray-800 h-48">
-        <p className="text-left font-sans font-thin">
-          <span className="font-bold">Descrição: </span>
-          {product.description || "Sem descrição!"}
-        </p>
-      </ScrollArea>
-      <Button className="mt-5 p-0 " variant={"outline"}>
-        <Input
-          type="number"
-          min={1}
-          value={quantity}
-          max={5}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
-      </Button>
-      <Button onClick={handleBuy} className="mt-4">
-        Comprar
-      </Button>
+      {/* Conteúdo principal */}
+      <div className="p-4 flex flex-col flex-1">
+        {/* Descrição do curso */}
+        <ScrollArea className="h-32 rounded-md border p-2 bg-gray-50 mb-4 text-sm text-gray-700">
+          {product.description ? (
+            <p>{product.description}</p>
+          ) : (
+            <p className="italic text-gray-400">Sem descrição</p>
+          )}
+        </ScrollArea>
+
+        {/* Aviso de acesso por assinatura */}
+        <span className="text-sm text-center text-indigo-700 font-medium mt-auto">
+          Curso disponível com a assinatura da plataforma.
+        </span>
+      </div>
     </div>
   );
 }
