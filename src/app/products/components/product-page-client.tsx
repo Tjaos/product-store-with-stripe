@@ -35,7 +35,7 @@ export default function ProductPageClient({
         {/* Cabeçalho */}
         {isSubscribed ? (
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 border-b pb-6 border-gray-300">
-            <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
               <h1 className="text-4xl font-extrabold text-gray-900">
                 Acesse Seus Cursos
               </h1>
