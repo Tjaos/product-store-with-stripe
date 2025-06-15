@@ -42,6 +42,12 @@ export const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  logger: {
+    error: (code, metadata) => {
+      console.error(`NextAuth error: ${code}`, metadata);
+    },
+  },
+  debug: true,
 };
 
 export const auth = () => getServerSession(authOptions);
