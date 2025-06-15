@@ -34,6 +34,8 @@ export async function POST() {
     customerId = customer.id;
   }
 
+  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "subscription",
     payment_method_types: ["card"],
@@ -44,8 +46,8 @@ export async function POST() {
         quantity: 1,
       },
     ],
-    success_url: "http://localhost:3000/sucesso",
-    cancel_url: "http://localhost:3000/cancelado",
+    success_url: `${baseUrl}/sucesso`,
+    cancel_url: `${baseUrl}/cancelado`,
   });
 
   return Response.json({ url: checkoutSession.url });
