@@ -24,10 +24,11 @@ export async function POST() {
   if (!customerId) {
     const customer = await stripe.customers.create({
       email: user.email!,
+      name: user.name ?? undefined,
     });
 
     await db.user.update({
-      where: { id: user.id },
+      where: { email: user.email! },
       data: { stripeCustomerId: customer.id },
     });
 

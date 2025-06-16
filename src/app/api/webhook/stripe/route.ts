@@ -19,9 +19,13 @@ export async function POST(req: NextRequest) {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err) {
-    return new Response(`Webhook error: ${(err as Error).message}`, {
-      status: 400,
-    });
+    console.error("Erro ao verificar Webhook:", err);
+    return new Response(
+      `Erro ao verificar Webhook: ${(err as Error).message}`,
+      {
+        status: 400,
+      }
+    );
   }
 
   if (event.type === "checkout.session.completed") {
@@ -30,14 +34,22 @@ export async function POST(req: NextRequest) {
     const customerId = session.customer as string;
 
     if (!customerId) {
-      return new Response("Missing customer ID", { status: 400 });
+      return new Response("Não há ID de cliente", { status: 400 });
     }
 
-    await db.user.updateMany({
-      where: { stripeCustomerId: customerId },
-      data: { isSubscribed: true },
-    });
-    console.log(`Usuário com o ID ${customerId} foi marcado como inscrito.`);
+    try {
+      const updated = await db.user.update({
+        where: { stripeCustomerId: customerId },
+        data: { isSubscribed: true },
+      });
+
+      console.log(`Usuário com o ID ${updated.id} foi marcado como inscrito.`);
+    } catch (error) {
+      console.error("Erro ao atualizar usuário", error);
+      return new Response("Erro ao processar sessão de checkout", {
+        status: 500,
+      });
+    }
   }
 
   return new Response("Webhook recebido com sucesso!", { status: 200 });

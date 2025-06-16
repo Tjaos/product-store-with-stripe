@@ -47,7 +47,7 @@ model User {
   name             String?
   email            String?   @unique
   emailVerified    DateTime?
-  stripeCustomerId String?
+  stripeCustomerId String?   @unique
   isSubscribed     Boolean   @default(false)
   image            String?
   accounts         Account[]
