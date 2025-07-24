@@ -2,9 +2,9 @@ import { auth } from "@/lib/auth";
 import Stripe from "stripe";
 import { db } from "@/lib/prisma";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST() {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
   const session = await auth();
   if (!session || !session.user?.email) {
     return new Response("Unauthorized", { status: 401 });
