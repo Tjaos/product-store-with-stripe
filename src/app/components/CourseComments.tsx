@@ -12,16 +12,25 @@ export default function CourseComments({ courseId }: { courseId: string }) {
     { id: string; text: string; user: string }[]
   >([]);
 
+  type CommentValue = {
+    text: string;
+    user: string;
+  };
+
   useEffect(() => {
     const commentsRef = ref(database, `comments/${courseId}`);
     const unsubscribe = onValue(commentsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const parsed = Object.entries(data).map(([id, value]: any) => ({
-          id,
-          text: value.text,
-          user: value.user,
-        }));
+        const parsed = Object.entries(data).map(([id, value]) => {
+          const comment = value as CommentValue;
+          return {
+            id,
+            text: comment.text,
+            user: comment.user,
+          };
+        });
+
         setComments(parsed);
       } else {
         setComments([]);
