@@ -31,28 +31,28 @@ export default function ProductPageClient({
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-28 px-4 sm:px-6 md:px-10 pb-16">
+    <div className="min-h-screen bg-gray-100 pt-24 px-4 sm:px-6 md:px-10 pb-16">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        {/* Cabeçalho com título e botão de sair */}
+        {/* Cabeçalho com título e botões */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-b pb-8 border-gray-300">
           <div className="text-center md:text-left">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900">
               {isSubscribed
                 ? "Acesse Seus Cursos"
                 : "Obtenha acesso a todos os cursos com uma assinatura mensal"}
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-gray-600 mt-2 max-w-md mx-auto md:mx-0">
               {isSubscribed
                 ? "Sua assinatura permite acesso total a todos os cursos."
                 : "Assine a plataforma e libere o acesso a todos os cursos disponíveis."}
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-4 md:mt-0">
             {!isSubscribed && (
               <button
                 onClick={handleSubscribe}
-                className="bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-indigo-700 transition-all"
+                className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-indigo-700 transition-all"
               >
                 Assinar Plataforma
               </button>
@@ -61,14 +61,14 @@ export default function ProductPageClient({
             <Button
               variant="secondary"
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="w-full py-4 text-lg font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition"
+              className="w-full sm:w-auto py-3 text-lg font-semibold text-gray-700 border border-gray-300 hover:bg-gray-100 transition"
             >
               Sair
             </Button>
           </div>
         </div>
 
-        {/* Lista de cursos */}
+        {/* Lista de cursos responsiva */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.length > 0 ? (
             products.map((p) => <ProductCard key={p.id} product={p} />)

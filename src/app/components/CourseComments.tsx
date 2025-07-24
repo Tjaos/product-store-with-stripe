@@ -12,18 +12,13 @@ export default function CourseComments({ courseId }: { courseId: string }) {
     { id: string; text: string; user: string }[]
   >([]);
 
-  type CommentValue = {
-    text: string;
-    user: string;
-  };
-
   useEffect(() => {
     const commentsRef = ref(database, `comments/${courseId}`);
     const unsubscribe = onValue(commentsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         const parsed = Object.entries(data).map(([id, value]) => {
-          const comment = value as CommentValue;
+          const comment = value as { text: string; user: string };
           return {
             id,
             text: comment.text,
@@ -37,7 +32,6 @@ export default function CourseComments({ courseId }: { courseId: string }) {
       }
     });
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, [courseId]);
 
@@ -58,12 +52,10 @@ export default function CourseComments({ courseId }: { courseId: string }) {
   };
 
   return (
-    <div className="mt-4 border-t pt-4">
-      <h3 className="font-semibold text-lg mb-2">Comentários</h3>
-
-      <div className="space-y-2 max-h-64 overflow-y-auto mb-3">
+    <div className="flex flex-col h-full">
+      <div className="space-y-2 flex-1 overflow-y-auto max-h-[200px] mb-3">
         {comments.map((c) => (
-          <div key={c.id} className="bg-gray-100 rounded-md p-2">
+          <div key={c.id} className="bg-gray-100 rounded-md p-2 break-words">
             <p className="text-sm">
               <strong>{c.user}:</strong> {c.text}
             </p>
@@ -72,7 +64,7 @@ export default function CourseComments({ courseId }: { courseId: string }) {
       </div>
 
       {session ? (
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             placeholder="Escreva um comentário"
@@ -85,7 +77,7 @@ export default function CourseComments({ courseId }: { courseId: string }) {
           />
           <button
             onClick={handleSend}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            className="bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition"
           >
             Enviar
           </button>

@@ -17,16 +17,25 @@ export default function ProductCard({ product }: { product: Product }) {
   const isSubscribed = session?.user?.isSubscribed;
 
   return (
-    <div className="w-full min-h-[520px] flex flex-col bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 p-5">
+    <div
+      className="
+        w-full
+        min-h-[600px] md:min-h-[600px] 
+        flex flex-col 
+        bg-white rounded-2xl shadow-md 
+        overflow-hidden hover:shadow-xl transition-all duration-300 
+        border border-gray-200 p-4 sm:p-6
+      "
+    >
       {/* Nome do curso */}
-      <div className="bg-indigo-600 text-white text-center py-4 rounded-t-xl">
-        <h3 className="text-lg font-semibold">{product.name}</h3>
+      <div className="bg-indigo-600 text-white text-center py-3 rounded-t-xl">
+        <h3 className="text-lg sm:text-xl font-semibold">{product.name}</h3>
       </div>
 
       {/* Conteúdo principal */}
-      <div className="p-4 flex flex-col flex-1 justify-between gap-4">
-        {/* Descrição do curso com scroll interno */}
-        <ScrollArea className="h-32 rounded-md border p-2 bg-gray-50 text-sm text-gray-700">
+      <div className="flex flex-col flex-1 p-4 gap-4">
+        {/* Descrição do curso */}
+        <ScrollArea className="h-32 rounded-md border p-3 bg-gray-50 text-sm text-gray-700">
           {product.description ? (
             <p>{product.description}</p>
           ) : (
@@ -34,9 +43,9 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </ScrollArea>
 
-        {/* Botão ou aviso conforme assinatura */}
+        {/* Botão ou aviso */}
         {isSubscribed ? (
-          <Button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+          <Button className="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700 transition">
             Começar Curso
           </Button>
         ) : (
@@ -45,12 +54,14 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         )}
 
-        {/* Seção de comentários com altura fixa e scroll */}
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-1">
+        {/* Comentários */}
+        <div className="flex flex-col flex-1 mt-2 min-h-0">
+          <h4 className="text-sm font-semibold text-gray-700 mb-2">
             Comentários
           </h4>
-          <div className="h-64 overflow-y-auto bg-gray-50 border border-gray-200 rounded p-2">
+
+          {/* Container flex para ocupar espaço e scroll */}
+          <div className="flex-1 min-h-0 overflow-y-auto border border-gray-200 rounded-md p-3 bg-gray-50">
             <CourseComments courseId={product.id} />
           </div>
         </div>
